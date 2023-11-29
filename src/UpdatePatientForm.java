@@ -65,6 +65,7 @@ public class UpdatePatientForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(157, 195, 194));
         jPanel1.setForeground(new java.awt.Color(255, 0, 0));

@@ -66,6 +66,7 @@ public class AttendanceRecord extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(77, 114, 152));
         jPanel1.setForeground(new java.awt.Color(255, 0, 0));
@@ -182,6 +183,7 @@ public class AttendanceRecord extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     private ArrayList<AttendanceList> getAttendanceList() throws SQLException {
          try {
@@ -261,11 +263,7 @@ public class AttendanceRecord extends javax.swing.JFrame {
     }//GEN-LAST:event_attendance_list_tableMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        editemployee employee = new editemployee();
-        employee.pack();
-        employee.setLocationRelativeTo(null);
-        employee.setVisible(true);
+        new Home().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

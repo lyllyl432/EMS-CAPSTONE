@@ -80,6 +80,7 @@ public class EmployeeAttendance extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(77, 114, 152));
         jPanel1.setForeground(new java.awt.Color(255, 0, 0));
@@ -219,11 +220,11 @@ public class EmployeeAttendance extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(address_label, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(name_label, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(172, 172, 172)
+                        .addGap(150, 150, 150)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
@@ -298,6 +299,7 @@ public class EmployeeAttendance extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void fillEmployeeInformation(){
@@ -503,11 +505,7 @@ public class EmployeeAttendance extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        editemployee employee = new editemployee();
-        employee.pack();
-        employee.setLocationRelativeTo(null);
-        employee.setVisible(true);
+        new AddAttendance().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
