@@ -10,13 +10,24 @@ package General;
  */
 public class EmployeeList {
    
-    private String name, address, phoneNumber, gender, idNumber;
-    public EmployeeList(String idNumber, String name, String address, String phoneNumber, String gender){
+    private String name, address, phoneNumber, gender, idNumber, department, profile_picture;
+    public EmployeeList(String idNumber, String name, String address, String phoneNumber, String gender, String department){
         this.idNumber = idNumber;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.gender = gender;
         this.address = address;
+        this.department = department;
+    }
+    
+    public EmployeeList(String idNumber, String name, String address, String phoneNumber, String gender, String department, String profile_picture){
+        this.idNumber = idNumber;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.address = address;
+        this.department = department;
+        this.profile_picture = profile_picture;
     }
     public String getIdNumber(){
         return idNumber;
@@ -32,5 +43,11 @@ public class EmployeeList {
     }
     public String getGender(){
         return gender;
+    }
+    public String getDepartment(){
+        return department;
+    }
+    public String getProfilePicture(){
+        return profile_picture;
     }
 }

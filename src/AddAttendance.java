@@ -9,12 +9,12 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -22,53 +22,24 @@ import javax.swing.table.TableColumnModel;
 
 /**
  *
- * @author shand
+ * @author HP
  */
-public class AddEmployee extends javax.swing.JFrame {
+public class AddAttendance extends javax.swing.JFrame {
 
     /**
-     * Creates new form AddEmployee
+     * Creates new form AddAttendance
      */
-      private Connection con;
-      private ResultSet rs;
-      private DefaultTableModel model;
+    private DefaultTableModel model;
     private ArrayList<EmployeeList> employeeArrayList; 
-    public AddEmployee() {
+    public AddAttendance() {
         initComponents();
-          try {
-              showEmployeeItem();
-          } catch (SQLException ex) {
-              Logger.getLogger(AddEmployee.class.getName()).log(Level.SEVERE, null, ex);
-          }
+        try {
+            this.showEmployeeItem();
+        } catch (SQLException ex) {
+            Logger.getLogger(AddAttendance.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-   
-    
-    public void showEmployeeItem() throws SQLException{
-         employeeArrayList = Utils.getEmployeeList();
-        model = (DefaultTableModel)this.employeeListTable.getModel();
-         Object[] row = new Object[7];
-         
-         model.setRowCount(0);
-          for(int i = 0; i < employeeArrayList.size(); i++){
-             
-//            System.out.println(pendingArrayList.get(i).getTime());
-            row[0] = employeeArrayList.get(i).getIdNumber();
-            row[1] = employeeArrayList.get(i).getName();
-            row[2] = employeeArrayList.get(i).getAddress();
-            row[3] = employeeArrayList.get(i).getPhoneNumber();
-            row[4] = employeeArrayList.get(i).getGender();
-            row[5] = employeeArrayList.get(i).getDepartment();
-            row[6] = employeeArrayList.get(i).getProfilePicture();
-            
-            model.addRow(row);
-        }
-          TableColumnModel columnModel = this.employeeListTable.getColumnModel();
-          Utils.setColumnWidthZero(columnModel, 6);
-         
-    
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,16 +52,12 @@ public class AddEmployee extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         employeeListTable = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(77, 114, 152));
         jPanel1.setForeground(new java.awt.Color(255, 0, 0));
@@ -130,35 +97,15 @@ public class AddEmployee extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 680, 340));
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(51, 51, 51));
-        jButton3.setText("Remove Employee");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, -1, 40));
-
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(51, 51, 51));
-        jButton4.setText("Add Employee");
+        jButton4.setText("Attendance");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, 40));
-
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(51, 51, 51));
-        jButton1.setText("Update Employee");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, 40));
 
         jPanel2.setBackground(new java.awt.Color(119, 166, 182));
 
@@ -199,98 +146,93 @@ public class AddEmployee extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 110));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 530));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 720, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 530, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    public void showEmployeeItem() throws SQLException{
+    employeeArrayList = Utils.getEmployeeList();
+        model = (DefaultTableModel)this.employeeListTable.getModel();
+         Object[] row = new Object[7];
+         
+         model.setRowCount(0);
+          for(int i = 0; i < employeeArrayList.size(); i++){
+             
+//            System.out.println(pendingArrayList.get(i).getTime());
+            row[0] = employeeArrayList.get(i).getIdNumber();
+            row[1] = employeeArrayList.get(i).getName();
+            row[2] = employeeArrayList.get(i).getAddress();
+            row[3] = employeeArrayList.get(i).getPhoneNumber();
+            row[4] = employeeArrayList.get(i).getGender();
+            row[5] = employeeArrayList.get(i).getDepartment();
+            row[6] = employeeArrayList.get(i).getProfilePicture();
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        editemployee employee = new editemployee();
-        employee.pack();
-        employee.setLocationRelativeTo(null);
-        employee.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
-//remove employee list specified by id number
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        int deleteItem;
-        DefaultTableModel RecordTable = (DefaultTableModel) this.employeeListTable.getModel();
-        int selectedRow = this.employeeListTable.getSelectedRow();
-         String idNumber= this.employeeListTable.getValueAt(selectedRow, 0).toString();
-
-        try {
-            deleteItem = JOptionPane.showConfirmDialog(null, "Confirm if you want to delete item ", "warning", JOptionPane.YES_NO_OPTION);
-
-            if (deleteItem == JOptionPane.YES_OPTION) {
-
-                // Create the SQL query with placeholders
-                String deleteQuery = "DELETE FROM employee WHERE id_number = ?";
-
-                // Create a connection
-                ConnectionProvider dbc = new ConnectionProvider();
-                String jdbcDriver = dbc.getJdbcDriver();
-                String dbConnectionURL = dbc.getDbConnectionURL();
-                String dbUsername = dbc.getDbUsername();
-                String dbPassword = dbc.getDbPassword();
-                Class.forName(jdbcDriver);
-                Connection connection = DriverManager.getConnection(dbConnectionURL, dbUsername, dbPassword);
-
-                // Create the PreparedStatement
-                PreparedStatement statement = connection.prepareStatement(deleteQuery);
-                statement.setInt(1, Integer.parseInt(idNumber));
-
-                // Execute the DELETE query
-                int rowsAffected = statement.executeUpdate();
-
-                if (rowsAffected > 0) {
-                    showEmployeeItem();
-                } else {
-                    System.out.println("No record found with the given id_number.");
-                }
-
-                
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+            model.addRow(row);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
+          TableColumnModel columnModel = this.employeeListTable.getColumnModel();
+          Utils.setColumnWidthZero(columnModel, 6);
+    
+    }
+    
     private void employeeListTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_employeeListTableMouseClicked
-//         DefaultTableModel RecordTable = (DefaultTableModel) this.employeeListTable.getModel();
-//    int SelectedRows = this.employeeListTable.getSelectedRow();
-//    employee_id_field.setText(RecordTable.getValueAt(SelectedRows, 0).toString());
-//     name_field.setText(RecordTable.getValueAt(SelectedRows, 1).toString());
-//    address_field.setText(RecordTable.getValueAt(SelectedRows, 2).toString());
-//    phone_field.setText(RecordTable.getValueAt(SelectedRows, 3).toString());
-//    gender_combo_box.setSelectedItem(RecordTable.getValueAt(SelectedRows, 4).toString());
-        
+        //         DefaultTableModel RecordTable = (DefaultTableModel) this.employeeListTable.getModel();
+        //    int SelectedRows = this.employeeListTable.getSelectedRow();
+        //    employee_id_field.setText(RecordTable.getValueAt(SelectedRows, 0).toString());
+        //     name_field.setText(RecordTable.getValueAt(SelectedRows, 1).toString());
+        //    address_field.setText(RecordTable.getValueAt(SelectedRows, 2).toString());
+        //    phone_field.setText(RecordTable.getValueAt(SelectedRows, 3).toString());
+        //    gender_combo_box.setSelectedItem(RecordTable.getValueAt(SelectedRows, 4).toString());
+
     }//GEN-LAST:event_employeeListTableMouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        new AddEmployeeForm(this).setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         int selectedRow = this.employeeListTable.getSelectedRow();
+          int selectedRow = this.employeeListTable.getSelectedRow();
         if (selectedRow != -1) {
                     // Get values from the selected row
                     String idNumber= this.employeeListTable.getValueAt(selectedRow, 0).toString();
                     String name = this.employeeListTable.getValueAt(selectedRow, 1).toString();
-                    String address = this.employeeListTable.getValueAt(selectedRow, 3).toString();
-                    String phoneNumber = this.employeeListTable.getValueAt(selectedRow, 2).toString();
-                    System.out.println(this.employeeListTable.getValueAt(selectedRow, 2).toString());
+                    String address = this.employeeListTable.getValueAt(selectedRow, 2).toString();
+//                    System.out.println(address);
+                    String phoneNumber = this.employeeListTable.getValueAt(selectedRow, 3).toString();
+//                    System.out.println(this.employeeListTable.getValueAt(selectedRow, 3).toString());
                     String gender = this.employeeListTable.getValueAt(selectedRow, 4).toString();
                     String department = this.employeeListTable.getValueAt(selectedRow, 5).toString();
                     String profile_picture = this.employeeListTable.getValueAt(selectedRow, 6).toString();
-                    EmployeeList employeeList = new EmployeeList(idNumber, name, address, phoneNumber, gender,department,profile_picture);
-                    new UpdatePatientForm(this, employeeList).setVisible(true);
+
+                    EmployeeList employeeList = new EmployeeList(idNumber, name, address, phoneNumber, gender,department, profile_picture);
+              try {
+                  new EmployeeAttendance(employeeList).setVisible(true);
+              } catch (SQLException ex) {
+                  Logger.getLogger(AddAttendance.class.getName()).log(Level.SEVERE, null, ex);
+              }
                 } else {
-                    System.out.println("No row selected.");
+                    JOptionPane.showMessageDialog(this, "No row selected.", "Error", JOptionPane.INFORMATION_MESSAGE);
+
                 }  
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -309,29 +251,27 @@ public class AddEmployee extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddEmployee().setVisible(true);
+                new AddAttendance().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable employeeListTable;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
