@@ -63,6 +63,11 @@ public class AddEmployee extends javax.swing.JFrame {
             
             model.addRow(row);
         }
+          
+             this.employeeListTable.getColumnModel().getColumn(1).setPreferredWidth(150);
+                this.employeeListTable.getColumnModel().getColumn(2).setPreferredWidth(150);
+                this.employeeListTable.getColumnModel().getColumn(3).setPreferredWidth(100);
+
           TableColumnModel columnModel = this.employeeListTable.getColumnModel();
           Utils.setColumnWidthZero(columnModel, 6);
          
@@ -87,6 +92,8 @@ public class AddEmployee extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        search_field = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -199,6 +206,17 @@ public class AddEmployee extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 110));
 
+        search_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                search_fieldKeyReleased(evt);
+            }
+        });
+        jPanel1.add(search_field, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 150, 120, -1));
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Search Employee :");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 150, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 530));
 
         pack();
@@ -206,11 +224,7 @@ public class AddEmployee extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        editemployee employee = new editemployee();
-        employee.pack();
-        employee.setLocationRelativeTo(null);
-        employee.setVisible(true);
+        new Home().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 //remove employee list specified by id number
@@ -218,6 +232,7 @@ public class AddEmployee extends javax.swing.JFrame {
         int deleteItem;
         DefaultTableModel RecordTable = (DefaultTableModel) this.employeeListTable.getModel();
         int selectedRow = this.employeeListTable.getSelectedRow();
+        if(selectedRow != -1){
          String idNumber= this.employeeListTable.getValueAt(selectedRow, 0).toString();
 
         try {
@@ -256,6 +271,10 @@ public class AddEmployee extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
+        }else{
+            JOptionPane.showMessageDialog(this, "No row selected.", "Error", JOptionPane.INFORMATION_MESSAGE);
+
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void employeeListTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_employeeListTableMouseClicked
@@ -288,9 +307,14 @@ public class AddEmployee extends javax.swing.JFrame {
                     EmployeeList employeeList = new EmployeeList(idNumber, name, address, phoneNumber, gender,department,profile_picture);
                     new UpdatePatientForm(this, employeeList).setVisible(true);
                 } else {
-                    System.out.println("No row selected.");
-                }  
+                    JOptionPane.showMessageDialog(this, "No row selected.", "Error", JOptionPane.INFORMATION_MESSAGE);
+
+        }  
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void search_fieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_search_fieldKeyReleased
+        Utils.filterSearch(this.search_field.getText(), employeeListTable, 1);
+    }//GEN-LAST:event_search_fieldKeyReleased
 
     /**
      * @param args the command line arguments
@@ -334,8 +358,10 @@ public class AddEmployee extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField search_field;
     // End of variables declaration//GEN-END:variables
 }
