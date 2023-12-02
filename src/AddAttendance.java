@@ -187,7 +187,7 @@ public class AddAttendance extends javax.swing.JFrame {
     public void showEmployeeItem() throws SQLException{
     employeeArrayList = Utils.getEmployeeList();
         model = (DefaultTableModel)this.employeeListTable.getModel();
-         Object[] row = new Object[7];
+         Object[] row = new Object[8];
          
          model.setRowCount(0);
           for(int i = 0; i < employeeArrayList.size(); i++){
@@ -200,6 +200,7 @@ public class AddAttendance extends javax.swing.JFrame {
             row[4] = employeeArrayList.get(i).getGender();
             row[5] = employeeArrayList.get(i).getDepartment();
             row[6] = employeeArrayList.get(i).getProfilePicture();
+            row[7] = employeeArrayList.get(i).getEmail();
 
             model.addRow(row);
         }
@@ -209,7 +210,8 @@ public class AddAttendance extends javax.swing.JFrame {
 
           TableColumnModel columnModel = this.employeeListTable.getColumnModel();
           Utils.setColumnWidthZero(columnModel, 6);
-    
+          Utils.setColumnWidthZero(columnModel, 7);
+
     }
     
     private void employeeListTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_employeeListTableMouseClicked
@@ -236,8 +238,9 @@ public class AddAttendance extends javax.swing.JFrame {
                     String gender = this.employeeListTable.getValueAt(selectedRow, 4).toString();
                     String department = this.employeeListTable.getValueAt(selectedRow, 5).toString();
                     String profile_picture = this.employeeListTable.getValueAt(selectedRow, 6).toString();
+                    String email = this.employeeListTable.getValueAt(selectedRow, 7).toString();
 
-                    EmployeeList employeeList = new EmployeeList(idNumber, name, address, phoneNumber, gender,department, profile_picture);
+                    EmployeeList employeeList = new EmployeeList(idNumber, name, address, phoneNumber, gender,department, profile_picture,email);
               try {
                   new EmployeeAttendance(employeeList).setVisible(true);
               } catch (SQLException ex) {

@@ -4,6 +4,7 @@
  */
 package General;
 
+import java.awt.print.PrinterException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,8 +14,14 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.sql.*;
+import java.text.MessageFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 /**
@@ -71,7 +78,7 @@ public class Utils {
             ResultSet rs = statement.executeQuery(selectQuery);
             
             while (rs.next()) {
-                employee_list = new EmployeeList(rs.getString("id_number"), rs.getString("full_name"), rs.getString("address"),rs.getString("phone_number"), rs.getString("gender"), rs.getString("department"), rs.getString("profile_picture"));
+                employee_list = new EmployeeList(rs.getString("id_number"), rs.getString("full_name"), rs.getString("address"),rs.getString("phone_number"), rs.getString("gender"), rs.getString("department"), rs.getString("profile_picture"),rs.getString("email"));
                 employeeArrayList.add(employee_list);
             }
             
@@ -93,6 +100,39 @@ public class Utils {
      column.setMaxWidth(0);
      column.setPreferredWidth(0);
      column.setWidth(0);
+    }
+    public static void printTable(JTable table) throws PrinterException {
+        // Create a MessageFormat for the header and footer
+        MessageFormat header = new MessageFormat("Attendance Record");
+        MessageFormat footer = new MessageFormat("Page {0}");
+
+        // Print the table
+        boolean complete = table.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+
+        if (complete) {
+            System.out.println("Printing Complete");
+        } else {
+            System.out.println("Printing Cancelled");
+        }
+    }
+    //field characters authentication
+        public static boolean isValidEmail(String email) {
+        if (email == null) {
+            return false;
+        }
+
+        // Regular expression for a simple email validation
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+
+        return matcher.matches();
+    }
+         // Make the date as a readable string date format
+    public static String convertDateToReadable(String date_string){
+        LocalDate date = LocalDate.parse(date_string);
+             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
+             return date.format(formatter);
     }
 }
 

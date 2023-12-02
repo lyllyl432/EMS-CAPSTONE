@@ -192,7 +192,7 @@ public class Loginform extends javax.swing.JFrame {
             this.dispose();
         }
         else{
-            JOptionPane.showMessageDialog(null, "Wrong password or password?","Message",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Wrong password or username?","Message",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_bloginActionPerformed
 
