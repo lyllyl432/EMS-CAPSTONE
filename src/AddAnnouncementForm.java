@@ -17,6 +17,8 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
+import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 /**
  *
  * @author HP
@@ -52,7 +54,7 @@ public class AddAnnouncementForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         subject_field = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(157, 195, 194));
         jPanel1.setForeground(new java.awt.Color(255, 0, 0));
@@ -137,52 +139,65 @@ public class AddAnnouncementForm extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      String subject = this.subject_field.getText();
-      String message = this.message_field.getText();
-        try {        
-            Date selected_date = date_chooser.getDate();
-// Create a SimpleDateFormat with the desired format
-SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-// Format the date and return the result as a string
-String word_date = Utils.convertDateToReadable(dateFormat.format(selected_date));
 
-// Create the SQL query without placeholders
-String selectQuery = "SELECT employee.email FROM employee";
+        String subject = this.subject_field.getText();
+        String message = this.message_field.getText();
 
-// Create a connection
-ConnectionProvider dbc = new ConnectionProvider();
-String jdbcDriver = dbc.getJdbcDriver();
-String dbConnectionURL = dbc.getDbConnectionURL();
-String dbUsername = dbc.getDbUsername();
-String dbPassword = dbc.getDbPassword();
-Class.forName(jdbcDriver);
-con = DriverManager.getConnection(dbConnectionURL, dbUsername, dbPassword);
+        // Show loading message
+        JOptionPane.showMessageDialog(this, "Sending emails, please wait...", "Loading", JOptionPane.INFORMATION_MESSAGE);
 
-// Create the Statement
-Statement statement = con.createStatement();
-
-// Execute the query
-ResultSet rs = statement.executeQuery(selectQuery);
-
-while (rs.next()) {
+        // Start a background thread for email sending
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
                 try {
-                    MailUtil.sendMail(rs.getString("email"), message, subject + ":" + word_date);
-                } catch (MessagingException ex) {
+                    Date selected_date = date_chooser.getDate();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String word_date = Utils.convertDateToReadable(dateFormat.format(selected_date));
+
+                    String selectQuery = "SELECT employee.email FROM employee";
+
+                    ConnectionProvider dbc = new ConnectionProvider();
+                    String jdbcDriver = dbc.getJdbcDriver();
+                    String dbConnectionURL = dbc.getDbConnectionURL();
+                    String dbUsername = dbc.getDbUsername();
+                    String dbPassword = dbc.getDbPassword();
+                    Class.forName(jdbcDriver);
+                    con = DriverManager.getConnection(dbConnectionURL, dbUsername, dbPassword);
+
+                    Statement statement = con.createStatement();
+                    ResultSet rs = statement.executeQuery(selectQuery);
+
+                    while (rs.next()) {
+                        try {
+                            MailUtil.sendMail(rs.getString("email"), message, subject + ":" + word_date);
+                        } catch (MessagingException ex) {
+                            Logger.getLogger(AddAnnouncementForm.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    statement.close();
+                    con.close();
+                } catch (ClassNotFoundException | SQLException ex) {
                     Logger.getLogger(AddAnnouncementForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
-}
+                return null;
+            }
 
-// Close resources
-statement.close();
-con.close();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AddAnnouncementForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddAnnouncementForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            @Override
+            protected void done() {
+                // Close the loading message
+                JOptionPane.getRootFrame().dispose();
+                // Close the form or perform any other actions as needed
+                AddAnnouncementForm.this.dispose();
+            }
+        };
+
+        worker.execute();
+    
             
     }//GEN-LAST:event_jButton1ActionPerformed
 

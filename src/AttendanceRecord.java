@@ -294,7 +294,52 @@ public class AttendanceRecord extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        int deleteItem;
+        DefaultTableModel RecordTable = (DefaultTableModel) this.attendance_list_table.getModel();
+        int selectedRow = this.attendance_list_table.getSelectedRow();
+        if(selectedRow != -1){
+         String idNumber= this.attendance_list_table.getValueAt(selectedRow, 4).toString();
+
+        try {
+            deleteItem = JOptionPane.showConfirmDialog(null, "Confirm if you want to delete item ", "warning", JOptionPane.YES_NO_OPTION);
+
+            if (deleteItem == JOptionPane.YES_OPTION) {
+
+                // Create the SQL query with placeholders
+                String deleteQuery = "DELETE FROM attendance WHERE attendance_id = ?";
+
+                // Create a connection
+                ConnectionProvider dbc = new ConnectionProvider();
+                String jdbcDriver = dbc.getJdbcDriver();
+                String dbConnectionURL = dbc.getDbConnectionURL();
+                String dbUsername = dbc.getDbUsername();
+                String dbPassword = dbc.getDbPassword();
+                Class.forName(jdbcDriver);
+                Connection connection = DriverManager.getConnection(dbConnectionURL, dbUsername, dbPassword);
+
+                // Create the PreparedStatement
+                PreparedStatement statement = connection.prepareStatement(deleteQuery);
+                statement.setInt(1, Integer.parseInt(idNumber));
+
+                // Execute the DELETE query
+                int rowsAffected = statement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    showAttendanceRecord();
+                } else {
+                    System.out.println("No record found with the given id_number.");
+                }
+
+                
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+        }else{
+            JOptionPane.showMessageDialog(this, "No row selected.", "Error", JOptionPane.INFORMATION_MESSAGE);
+
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

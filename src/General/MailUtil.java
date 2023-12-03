@@ -51,7 +51,7 @@ public class MailUtil {
             message.setFrom(new InternetAddress(my_account_email));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
             message.setSubject("TCC ANNOUNCEMENT!");
-            message.setText(subject + "\n \n" + inserted_message);
+            message.setText("Date of Announcement: " + subject + "\n \n" + inserted_message);
             return message;
         } catch (AddressException ex) {
             java.util.logging.Logger.getLogger(MailUtil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
