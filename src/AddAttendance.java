@@ -71,11 +71,11 @@ public class AddAttendance extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID Number", "Name", "Address", "Phone Number", "Gender", "Department", "Profile Picture"
+                "ID Number", "Name", "Address", "Phone Number", "Gender", "Department", "Profile Picture", "Email"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -96,6 +96,7 @@ public class AddAttendance extends javax.swing.JFrame {
             employeeListTable.getColumnModel().getColumn(4).setResizable(false);
             employeeListTable.getColumnModel().getColumn(5).setResizable(false);
             employeeListTable.getColumnModel().getColumn(6).setResizable(false);
+            employeeListTable.getColumnModel().getColumn(7).setResizable(false);
         }
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 680, 340));
