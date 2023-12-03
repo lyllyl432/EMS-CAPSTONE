@@ -10,7 +10,7 @@ package General;
  */
 public class EmployeeList {
    
-    private String name, address, phoneNumber, gender, idNumber, department, profile_picture;
+    private String name, address, phoneNumber, gender, idNumber, department, profile_picture, email;
     public EmployeeList(String idNumber, String name, String address, String phoneNumber, String gender, String department){
         this.idNumber = idNumber;
         this.name = name;
@@ -20,7 +20,7 @@ public class EmployeeList {
         this.department = department;
     }
     
-    public EmployeeList(String idNumber, String name, String address, String phoneNumber, String gender, String department, String profile_picture){
+    public EmployeeList(String idNumber, String name, String address, String phoneNumber, String gender, String department, String profile_picture, String email){
         this.idNumber = idNumber;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -28,6 +28,7 @@ public class EmployeeList {
         this.address = address;
         this.department = department;
         this.profile_picture = profile_picture;
+        this.email = email;
     }
     public String getIdNumber(){
         return idNumber;
@@ -49,5 +50,8 @@ public class EmployeeList {
     }
     public String getProfilePicture(){
         return profile_picture;
+    }
+    public String getEmail(){
+        return email;
     }
 }

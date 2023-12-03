@@ -47,7 +47,7 @@ public class AddEmployee extends javax.swing.JFrame {
     public void showEmployeeItem() throws SQLException{
          employeeArrayList = Utils.getEmployeeList();
         model = (DefaultTableModel)this.employeeListTable.getModel();
-         Object[] row = new Object[7];
+         Object[] row = new Object[8];
          
          model.setRowCount(0);
           for(int i = 0; i < employeeArrayList.size(); i++){
@@ -60,6 +60,7 @@ public class AddEmployee extends javax.swing.JFrame {
             row[4] = employeeArrayList.get(i).getGender();
             row[5] = employeeArrayList.get(i).getDepartment();
             row[6] = employeeArrayList.get(i).getProfilePicture();
+            row[7] = employeeArrayList.get(i).getEmail();
             
             model.addRow(row);
         }
@@ -70,7 +71,7 @@ public class AddEmployee extends javax.swing.JFrame {
 
           TableColumnModel columnModel = this.employeeListTable.getColumnModel();
           Utils.setColumnWidthZero(columnModel, 6);
-         
+         Utils.setColumnWidthZero(columnModel, 7);
     
     }
     
@@ -108,11 +109,11 @@ public class AddEmployee extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID Number", "Name", "Address", "Phone Number", "Gender", "Department", "Profile Picture"
+                "ID Number", "Name", "Address", "Phone Number", "Gender", "Department", "Profile Picture", "Email"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -133,6 +134,7 @@ public class AddEmployee extends javax.swing.JFrame {
             employeeListTable.getColumnModel().getColumn(4).setResizable(false);
             employeeListTable.getColumnModel().getColumn(5).setResizable(false);
             employeeListTable.getColumnModel().getColumn(6).setResizable(false);
+            employeeListTable.getColumnModel().getColumn(7).setResizable(false);
         }
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 680, 340));
@@ -304,7 +306,8 @@ public class AddEmployee extends javax.swing.JFrame {
                     String gender = this.employeeListTable.getValueAt(selectedRow, 4).toString();
                     String department = this.employeeListTable.getValueAt(selectedRow, 5).toString();
                     String profile_picture = this.employeeListTable.getValueAt(selectedRow, 6).toString();
-                    EmployeeList employeeList = new EmployeeList(idNumber, name, address, phoneNumber, gender,department,profile_picture);
+                    String email = this.employeeListTable.getValueAt(selectedRow, 7).toString();
+                    EmployeeList employeeList = new EmployeeList(idNumber, name, address, phoneNumber, gender,department,profile_picture,email);
                     new UpdatePatientForm(this, employeeList).setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "No row selected.", "Error", JOptionPane.INFORMATION_MESSAGE);

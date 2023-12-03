@@ -3,6 +3,7 @@ import General.AttendanceList;
 import General.ConnectionProvider;
 import General.EmployeeList;
 import General.Utils;
+import java.awt.print.PrinterException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,6 +65,7 @@ public class AttendanceRecord extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         date_chooser = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -145,13 +147,13 @@ public class AttendanceRecord extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(51, 51, 51));
-        jButton3.setText("Remove Attendance");
+        jButton3.setText("Print Report");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, 40));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, -1, 40));
         jPanel1.add(date_chooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 200, 30));
 
         jButton1.setText("Search Date");
@@ -161,6 +163,16 @@ public class AttendanceRecord extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 163, -1, 30));
+
+        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(51, 51, 51));
+        jButton4.setText("Remove Attendance");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -268,46 +280,11 @@ public class AttendanceRecord extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        int deleteItem;
-        DefaultTableModel RecordTable = (DefaultTableModel) this.attendance_list_table.getModel();
-        int selectedRow = this.attendance_list_table.getSelectedRow();
-        int attendance_id= Integer.valueOf(this.attendance_list_table.getValueAt(selectedRow, 4).toString());
-
         try {
-            deleteItem = JOptionPane.showConfirmDialog(null, "Confirm if you want to delete item ", "warning", JOptionPane.YES_NO_OPTION);
-
-            if (deleteItem == JOptionPane.YES_OPTION) {
-
-                // Create the SQL query with placeholders
-                String deleteQuery = "DELETE FROM attendance WHERE attendance_id = ?";
-
-                // Create a connection
-                ConnectionProvider dbc = new ConnectionProvider();
-                String jdbcDriver = dbc.getJdbcDriver();
-                String dbConnectionURL = dbc.getDbConnectionURL();
-                String dbUsername = dbc.getDbUsername();
-                String dbPassword = dbc.getDbPassword();
-                Class.forName(jdbcDriver);
-                Connection connection = DriverManager.getConnection(dbConnectionURL, dbUsername, dbPassword);
-
-                // Create the PreparedStatement
-                PreparedStatement statement = connection.prepareStatement(deleteQuery);
-                statement.setInt(1, attendance_id);
-
-                // Execute the DELETE query
-                int rowsAffected = statement.executeUpdate();
-
-                if (rowsAffected > 0) {
-                    showAttendanceRecord();
-                } else {
-                    System.out.println("No record found with the given id_number.");
-                }
-
+                Utils.printTable(attendance_list_table);
+            } catch (PrinterException ex) {
+                ex.printStackTrace();
             }
-        } catch (ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -315,6 +292,10 @@ public class AttendanceRecord extends javax.swing.JFrame {
         String formattedDate = dateFormat.format(selectedDate);
         Utils.filterSearch(formattedDate, attendance_list_table,1);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -357,6 +338,7 @@ public class AttendanceRecord extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
